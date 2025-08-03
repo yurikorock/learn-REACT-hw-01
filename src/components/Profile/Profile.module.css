@@ -1,0 +1,67 @@
+.card {
+    width: 300px;
+    background-color: coral;
+    border: 2px, solid, black;
+    border-radius: 10px;
+    margin: 0 auto;
+
+}
+
+.descr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 0 16px 0;
+}
+
+.image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: rgb(214, 162, 119);
+    border: 2px solid #080808;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+
+}
+
+.username {
+    font-size: 16px;
+    color: grey;
+    margin-top: 10px;
+}
+
+.location {
+    font-size: 16px;
+    color: grey;
+    margin-top: 10px;
+}
+.stats{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+.stats li{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    text-align: center;
+}
+.stats li span:first-child {
+    
+    font-size: 14px;
+    
+}
+.stats li span:last-child {
+   
+    font-weight: bold;
+    font-size: 16px;
+    
+}
