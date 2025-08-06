@@ -1,8 +1,14 @@
-import css from "./Option.module.css"
+import css from './Option.module.css';
 
-const Profile = () => {
+const Option = ({updateFeedback, totalFeedback, resetFeedback}) => {
   return (
-    <div><p>2</p></div>
+    <div>
+      <button onClick={()=>updateFeedback("good")}>Good</button>
+      <button onClick={()=>updateFeedback("neutral")}>Neutral</button>
+      <button onClick={()=>updateFeedback("bad")}>Bad</button>
+      {totalFeedback > 0 && (<button onClick={()=>{resetFeedback()}}>Reset</button>)}
+      
+    </div>
   );
 };
-export default Profile;
+export default Option;
