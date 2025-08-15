@@ -2,7 +2,7 @@ import css from './Contact.module.css';
 import { PiAlienBold } from 'react-icons/pi';
 import { PiPhoneTransferFill } from 'react-icons/pi';
 
-export default function Contact({ id, name, number }) {
+export default function Contact({ id, name, number, onDelete }) {
   return (
     <div className={css.contactCard}>
       <div className={css.infogroup}>
@@ -15,7 +15,7 @@ export default function Contact({ id, name, number }) {
         </div>
       </div>
 
-      <button className={css.button}>Delete</button>
+      <button className={css.button} onClick={()=>onDelete(id)}>Delete</button>
     </div>
   );
 }
