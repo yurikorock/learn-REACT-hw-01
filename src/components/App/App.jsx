@@ -2,17 +2,15 @@ import './App.css';
 import ContactForm from '../ContactForm/ContactForm.jsx';
 import ContactList from '../ContactList/ContactList.jsx';
 import SearchBox from '../SearchBox/SearchBox.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
-  const [contacts, setContacts] = useState([
-    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    { id: 'id-5', name: 'Suizie Lander', number: '227-25-80' },
-    { id: 'id-6', name: 'Alex Lanier', number: '898-43-15' },
-  ]);
+  const [contacts, setContacts] = useState(()=>{
+    const savedContacts = localStorage.getItem("contacts");
+    return savedContacts ? JSON.parse(savedContacts): [];
+  }
+   
+  );
   const [search, setSearch] = useState('');
 
   const filterContacts = contacts.filter((contact) =>
@@ -21,6 +19,9 @@ function App() {
   const addContact = (newContact) => {
     setContacts((prewContacts) => [...prewContacts, newContact]);
   };
+  useEffect(()=>{
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   return (
     <>
