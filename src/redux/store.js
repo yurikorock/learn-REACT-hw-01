@@ -1,11 +1,9 @@
-import { configureStore, createAction } from '@reduxjs/toolkit';
-import balanceReducer from './balanceSice.js';
+import { configureStore} from '@reduxjs/toolkit';
+import balanceReducer from './balanceSlice.js';
 import localeReducer from './localeSlice.js';
 
-//фабрика екшенів (функція яка створює обє`кт)
-export const deposit = createAction('balance/deposit');
-export const withdraw = createAction('balance/withdraw');
-export const changeLang = createAction('locale/changeLang');
+
+
 // const action = deposit(5);
 
 // const initialState = {

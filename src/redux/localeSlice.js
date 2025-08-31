@@ -1,3 +1,9 @@
+import { createAction } from '@reduxjs/toolkit';
+
+
+
+export const changeLang = createAction('locale/changeLang');
+
 const initialState = {
   lang: "uk",
 };

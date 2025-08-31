@@ -1,3 +1,11 @@
+import { createAction } from '@reduxjs/toolkit';
+
+
+//фабрика екшенів (функція яка створює обє`кт)
+export const deposit = createAction('balance/deposit');
+export const withdraw = createAction('balance/withdraw');
+
+
 const initialState = {
   value: 100,
 };
