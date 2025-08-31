@@ -1,62 +1,53 @@
 import { configureStore, createAction } from '@reduxjs/toolkit';
+import balanceReducer from './balanceSice.js';
+import localeReducer from './localeSlice.js';
 
 //фабрика екшенів (функція яка створює обє`кт)
 export const deposit = createAction('balance/deposit');
 export const withdraw = createAction('balance/withdraw');
-export const changeLang = createAction("locale/changeLang")
+export const changeLang = createAction('locale/changeLang');
 // const action = deposit(5);
 
-const initialState = {
-  balance: {
-    value: 100,
-  },
-  locale: {
-    lang:"uk"
-  },
-};
+// const initialState = {
+//   balance: {
+//     value: 100,
+//   },
+//   locale: {
+//     lang: 'uk',
+//   },
+// };
 //функція зміни стану
-function rootReducer(state = initialState, action) {
-  // console.log("rootReduser",action);
-
-//мінімум редюсера ===
+// function rootReducer(state = initialState, action) {
 //   switch (action.type) {
+//     case 'balance/deposit':
+//       return {
+//         ...state, //робимо завжди копію існуючого стану
+//         balance: {
+//           value: state.balance.value + action.payload,
+//         },
+//       };
+//     case 'balance/withdraw':
+//       return {
+//         ...state,
+//         balance: {
+//           value: state.balance.value - action.payload,
+//         },
+//       };
+//     case 'locale/changeLang':
+//       return {
+//         ...state,
+//         locale: {
+//           lang: action.payload,
+//         },
+//       };
 //     default:
 //       return state;
-//   }  
-//мінімум редюсера ===
+//   }
+// }
 
-//як формується початковий стан ?
-// "@@INIT" діспачится ініт під капотом
-// rootReducer(undefined, "@@INIT") викликається редюсер, а стану ще не існує в додатку
-// rootReducer(initialState, "@@INIT") не підходить ні один кейс під екшн @@INIT повертається default: return state в якому вже initialState 
-// return initialState;
-
-switch(action.type){
-    case "balance/deposit":
-        return{
-            ...state,//робимо завжди копію існуючого стану
-            balance: {
-                value: state.balance.value + action.payload,
-            }
-        }
-case "balance/withdraw":
-        return{
-            ...state,
-            balance: {
-                value: state.balance.value - action.payload,
-            }
-        }
-        case "locale/changeLang":
-            return{
-                ...state,
-                locale: {
-                    lang: action.payload,
-                }
-            }
-    default: return state;
-}
-}
-
-export default configureStore({
-  reducer: rootReducer,
+export const store = configureStore({
+  reducer: {
+    balance: balanceReducer,//відповідає за властивість стану balance
+    locale: localeReducer, //відповідає за властивість стану locale
+  },
 });
