@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { deposit, withdraw } from '../../redux/store.js';
+import { useState } from 'react';
 
 export default function Balance() {
   const dispatch = useDispatch(); //все що він робить - повертає посилання на функцію відправки екшенів
@@ -11,17 +12,23 @@ export default function Balance() {
     // console.log(deposit(15));
     // const action = deposit(5);
     // dispatch(action); // далі скорочено =>
-    dispatch(deposit(5)); // викликається фунція, повертає обєкт екшену, потім викликається діспатч і відправляє цей обєкт
+    dispatch(deposit(value)); // викликається фунція, повертає обєкт екшену, потім викликається діспатч і відправляє цей обєкт
   };
 
   const handleWithdraw = () => {
-    dispatch(withdraw(10));
+    dispatch(withdraw(value));
   };
+
+  //локальний стан input немає сенсу використовувати Redux
+  const [value, setValue] = useState(0);
+  const handleChangeValue = (e) =>{
+    setValue(Number(e.target.value));
+  }
 
   return (
     <div>
       <p>Balance: {balance} credits</p>
-      {/* <input type="number"/> */}
+      <input type="number" value={value} onChange={handleChangeValue} />
       <button onClick={handleDeposit}>Deposit credits</button>
       <button onClick={handleWithdraw}>Withdraw credits</button>
     </div>

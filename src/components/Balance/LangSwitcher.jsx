@@ -3,7 +3,7 @@ import { changeLang } from "../../redux/store.js";
 
 export default function LangSwitcher(){
     const dispatch = useDispatch();
-    //useSelector - функція яка повертає шматочок стану
+    //useSelector - функція яка зчитує і повертає шматочок стану
       const lang = useSelector(state => state.locale.lang)
 
       const handleChange = (e) => {

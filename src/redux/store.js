@@ -25,6 +25,12 @@ function rootReducer(state = initialState, action) {
 //   }  
 //мінімум редюсера ===
 
+//як формується початковий стан ?
+// "@@INIT" діспачится ініт під капотом
+// rootReducer(undefined, "@@INIT") викликається редюсер, а стану ще не існує в додатку
+// rootReducer(initialState, "@@INIT") не підходить ні один кейс під екшн @@INIT повертається default: return state в якому вже initialState 
+// return initialState;
+
 switch(action.type){
     case "balance/deposit":
         return{
