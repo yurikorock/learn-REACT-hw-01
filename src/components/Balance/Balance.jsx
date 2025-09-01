@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 export default function Balance() {
   const dispatch = useDispatch(); //все що він робить - повертає посилання на функцію відправки екшенів
+  //отримуємо дані із стор, по суті отримуємо даний стан в компонент
   const balance = useSelector((state) => {
     return state.balance.value;
   });
@@ -12,7 +13,7 @@ export default function Balance() {
     // console.log(deposit(15));
     // const action = deposit(5);
     // dispatch(action); // далі скорочено =>
-    dispatch(deposit(value)); // викликається фунція, повертає обєкт екшену, потім викликається діспатч і відправляє цей обєкт
+    dispatch(deposit(value)); // викликається фунція, повертає обєкт екшену, потім викликається діспатч і відправляє цей обєкт в стор
   };
 
   const handleWithdraw = () => {
