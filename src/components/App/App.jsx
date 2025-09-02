@@ -12,7 +12,12 @@ import { useSelector } from 'react-redux';
 
 
 export default function App(){
+//   state.locale.lang береться із твого initialState, яке ти описав у rootReducer.
+// Redux бере цей initialState як базу при старті, і useSelector просто читає його.
   const lang = useSelector(state => state.locale.lang)
+  // state тут = весь глобальний state Redux
+  // state.locale = { lang: "uk" }
+  // state.locale.lang = "uk"
   return(
     <>
       <h1>State managment with Redux</h1>
