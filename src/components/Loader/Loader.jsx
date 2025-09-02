@@ -1,17 +1,23 @@
-import { GridLoader } from "react-spinners";
+import { useState, useEffect } from "react";
+import css from "./Loader.module.css";
 
-export default function Loader() {
+export default function Loader({ children }) {
+  const [dots, setDots] = useState("");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots((dots) => (dots.length < 3 ? dots + "." : ""));
+    }, 250);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div>
-      <GridLoader
-        color="#43b1ab"
-        cssOverride={{}}
-        loading
-        margin={2}
-        size={10}
-        speedMultiplier={1}
-        width={4}
-      />
-    </div>
+    <p className={css.text}>
+      <b>
+        {children}
+        {dots}
+      </b>
+    </p>
   );
 }

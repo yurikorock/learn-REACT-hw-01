@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchTasks } from './tasksOps.js';
+import { addTask, deleteTask, fetchTasks } from './tasksOps.js';
 
 const slice = createSlice({
   name: 'tasks',
@@ -31,6 +31,22 @@ const slice = createSlice({
       })
       .addCase(fetchTasks.rejected, (state) => {
         state.error = true;
+      })
+      .addCase(deleteTask.pending, (state) => {
+        state.loading = true; //завантаження йде
+      })
+      .addCase(deleteTask.fulfilled, (state, action) => {
+        state.loading = false; // завантаження все припинилось
+        state.items = state.items.filter(
+          (item) => item.id !== action.payload.id,
+        );
+      })
+      .addCase(addTask.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addTask.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items.push(action.payload);
       }),
 });
 
