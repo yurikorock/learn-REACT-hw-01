@@ -30,3 +30,13 @@ export const addTask = createAsyncThunk("tasks/createTask", async (newTask)=>{
     return res.data; //(це payload fulfilled екшена)
 
 });
+
+export const toggleCompleted = createAsyncThunk(
+  "tasks/toggleCompleted",
+  async (task) => {
+    const res = await axios.put(`/tasks/${task.id}`, {
+      completed: !task.completed,
+    });
+    return res.data;
+  }
+);

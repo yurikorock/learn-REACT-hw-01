@@ -5,6 +5,7 @@ import Loader from '../Loader/Loader.jsx';
 import TaskList from '../TaskList/TaskList.jsx';
 import Error from '../Error/Error.jsx';
 import TaskForm from '../TaskForm/TaskForm.jsx';
+import TextFilter from '../TextFilter/TextFilter.jsx';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export default function App() {
     <div>
       <h1>HTTP request with REDUX</h1>
       <TaskForm/>
+      <TextFilter/>
       {loading && <Loader>Loading tasks, please wait ...</Loader>}
       {error && <Error>Error message</Error>}
       <TaskList />

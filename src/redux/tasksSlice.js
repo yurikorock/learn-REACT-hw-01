@@ -1,5 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { addTask, deleteTask, fetchTasks } from './tasksOps.js';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
+import {
+  addTask,
+  deleteTask,
+  fetchTasks,
+  toggleCompleted,
+} from './tasksOps.js';
+import { selectTextFilter } from './filterSlice.js';
 
 const slice = createSlice({
   name: 'tasks',
@@ -47,7 +53,91 @@ const slice = createSlice({
       .addCase(addTask.fulfilled, (state, action) => {
         state.loading = false;
         state.items.push(action.payload);
+      })
+      .addCase(toggleCompleted.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(toggleCompleted.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.items = state.items.map((item) => {
+          if (item.id === action.payload.id) {
+            return action.payload;
+          }
+          return item;
+        });
       }),
 });
 
 export default slice.reducer;
+
+// селектор робимо зовнішньою функцією, щоб не дублювати код, та
+// використовуємо де потрібно (від стану повертає шматки стану)
+// назва селектору повинна починатись з select... рекомендація розробників Редакс
+
+// прості селектори беруть відповідну частину стану та повертають у компонент без обчислень
+// export const selectA = (state) => state.task.a;
+
+export const selectTask = (state) => state.tasks.items;
+
+// Складні селектори повертають результат обчислення,
+// яке базується на частинках редакс стану
+// ЗАВЖДИ ТРЕБА МЕМОЇЗУВАТИ Складні селектори !!!
+
+// export const selectSum = (state) => {
+//   const a = state.tasks.a;
+//   const b = state.tasks.b;
+//   return a + b;
+// };
+
+// no memiozatia
+// export const selectVisibleTask = (state) => {
+//   const tasks = selectTask(state);
+//   const textFilter = selectTextFilter(state);
+
+//   return tasks.filter((task) =>
+//     task.text.toLowerCase().includes(textFilter.toLowerCase()),
+//   );
+// };
+
+// with memoize
+// export const select.....Name = createSelector([], ()=>{}); zrazok
+// createSelector([] - масив залежностей селекторів, ()=>{} - функція для мемоізації); zrazok
+
+export const selectVisibleTask = createSelector(
+  [selectTask, selectTextFilter],
+  (tasks, textFilter) => {
+    return tasks.filter((task) =>
+      task.text.toLowerCase().includes(textFilter.toLowerCase()),
+    );
+  },
+);
+// no memiozatia
+// export const selectTaskCount = (state) => {
+//   const tasks = selectTask(state);
+//   return tasks.reduce(
+//     (acc, task) => {
+//       if (task.complited) {
+//         acc.complited += 1;
+//       } else {
+//         acc.active += 1;
+//       }
+//       return acc;
+//     },
+//     { active: 0, complited: 0, total: tasks.length },
+//   );
+// };
+// with memoize
+export const selectTaskCount = createSelector([selectTask], (tasks) => {
+  return tasks.reduce(
+    (acc, task) => {
+      if (task.complited) {
+        acc.complited += 1;
+      } else {
+        acc.active += 1;
+      }
+      return acc;
+    },
+    { active: 0, complited: 0, total: tasks.length },
+  );
+});
