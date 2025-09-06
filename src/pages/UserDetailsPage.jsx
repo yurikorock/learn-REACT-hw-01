@@ -8,6 +8,7 @@ export default function UserDetailsPage() {
   // на любу сторінку яка рендериться з динамічними параметрами
   // можна викликати useParams і отримати обєкт параметрів
   // useParams можливість отримати із URL параметри і їх значення path='/dashboard/:userId'
+  // useParams дозволяє працювати з динамічними параметрами адресного рядка
   const { userId } = useParams();
 
   const [user, setUser] = useState(null);
