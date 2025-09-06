@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import UserList from '../components/UserList/UserList.jsx';
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
@@ -11,7 +12,8 @@ export default function UsersPage() {
 
   return (
     <div>
-      {users.length > 0 && (
+      {users.length > 0 && <UserList users ={users}/>}
+      {/* {users.length > 0 && (
         <ul>
           {users.map((user) => (
             <li key={user.id}>
@@ -19,7 +21,7 @@ export default function UsersPage() {
             </li>
           ))}
         </ul>
-      )}
+      )} */}
     </div>
   );
 }

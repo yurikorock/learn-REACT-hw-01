@@ -4,6 +4,7 @@ import AppHeader from './AppHeader/AppHeader.jsx';
 import HomePage from '../../pages/HomePage.jsx';
 import UsersPage from '../../pages/UsersPage.jsx';
 import NotFoundPage from '../../pages/NotFoundPage.jsx';
+import UserDetailsPage from '../../pages/UserDetailsPage.jsx';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/dashboard" element={<UsersPage/>} />
+        <Route path='/dashboard/:userId' element={<UserDetailsPage/>}/>
         <Route path='*' element={<NotFoundPage/>}/>
       </Routes>
     </div>
