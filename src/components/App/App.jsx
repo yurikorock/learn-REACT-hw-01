@@ -5,16 +5,22 @@ import HomePage from '../../pages/HomePage.jsx';
 import UsersPage from '../../pages/UsersPage.jsx';
 import NotFoundPage from '../../pages/NotFoundPage.jsx';
 import UserDetailsPage from '../../pages/UserDetailsPage.jsx';
+import UserPosts from '../UserPosts/UserPosts.jsx';
+import UserTodos from '../UserTodos/UserTodos.jsx';
 
 function App() {
   return (
     <div className={css.container}>
       <AppHeader />
       <Routes>
-        <Route path="/" element={<HomePage/>} />
-        <Route path="/dashboard" element={<UsersPage/>} />
-        <Route path='/dashboard/:userId' element={<UserDetailsPage/>}/>
-        <Route path='*' element={<NotFoundPage/>}/>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard" element={<UsersPage />} />
+        <Route path="/dashboard/:userId" element={<UserDetailsPage />}>
+          {/* /* вкладені маршрути */}
+          <Route path="posts" element={<UserPosts/>} />
+          <Route path="todos" element={<UserTodos/>} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
