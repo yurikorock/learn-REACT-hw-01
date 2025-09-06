@@ -1,41 +1,25 @@
-import './App.css';
-import { useEffect, useState } from 'react';
-import { Toaster } from 'react-hot-toast';
-
-import SearchBar from '../SearchBar/SearchBar.jsx';
-import ImageGallery from '../ImageGallery/ImageGallery.jsx';
-import { fetchImagesByQuery } from '../helpers/unsplashApi.js';
+import { NavLink, Route, Routes } from 'react-router-dom';
+import css from './App.module.css';
+import AppHeader from './AppHeader/AppHeader.jsx';
+import HomePage from '../../pages/HomePage.jsx';
+import UsersPage from '../../pages/UsersPage.jsx';
+import NotFoundPage from '../../pages/NotFoundPage.jsx';
 
 function App() {
-  const [query, setQuery] = useState('');
-  const [images, setImages] = useState([]);
-
-  const handleSearch = (newSearch) => {
-    setQuery(newSearch);
-    setImages([]);
-  };
-  useEffect(() => {
-    if (!query) return;
-    const fetchImages = async () => {
-      try {
-        const data = await fetchImagesByQuery(query);
-        console.log('images', data);
-        setImages((prevImages) => [...prevImages, ...data]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchImages();
-  }, [query]);
-
   return (
-    <>
-      <h1>ImageByBox</h1>
-      <SearchBar onSearch={handleSearch} />
-      <Toaster />
-      <ImageGallery images={images} />
-    </>
+    <div className={css.container}>
+      <AppHeader />
+      <Routes>
+        <Route path="/" element={<HomePage/>} />
+        <Route path="/dashboard" element={<UsersPage/>} />
+        <Route path='*' element={<NotFoundPage/>}/>
+      </Routes>
+    </div>
   );
 }
 
 export default App;
+
+// Link звичайний тег |a| , але не перезавантажує сторінку а змінює URL
+// NavLink те саме, але для того щоб добавляти стилі (в нього добавляється class=active)
+// <Routes 1 -шлях path="/", 2 - що бажаєм рендерити element={}/>
