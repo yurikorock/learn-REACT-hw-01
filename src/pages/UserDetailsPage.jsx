@@ -1,6 +1,6 @@
 // import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { NavLink, useParams, Outlet } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, useParams, Outlet, useLocation } from 'react-router-dom';
 import UserInfo from '../components/UserInfo/UserInfo.jsx';
 import { fetchUserById } from '../services/userService.js';
 
@@ -10,6 +10,18 @@ export default function UserDetailsPage() {
   // useParams можливість отримати із URL параметри і їх значення path='/dashboard/:userId'
   // useParams дозволяє працювати з динамічними параметрами адресного рядка
   const { userId } = useParams();
+
+  // хук повертає обєкт місцезнаходження, обєкт описує поточний URL
+  // На Userlist в Link є пропс state{}, і ми цей state отримуємо в обєкті location
+  // тобто в state є pathname(url сторінки) з якої ми прийшли
+  
+  const location = useLocation(); // отримуємо location поточної сторінки
+// console.log(location);
+
+// useRef для того щоб зберегти state між перевантаженнями сторінки
+// беремо location.state який ми передали при кліку на Userlist Link
+// зберігаємо це в useRef
+const backlinkRef = useRef(location.state);
 
   const [user, setUser] = useState(null);
 
@@ -21,6 +33,8 @@ export default function UserDetailsPage() {
   }, [userId]);
   return (
     <div>
+    {/* // повертаємось назад на сторінку звідки прийшли */}
+    <Link to={backlinkRef.current}>Go back</Link>
       {user && <UserInfo user={user} />}
       <ul>
         <li>
