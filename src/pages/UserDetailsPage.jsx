@@ -34,6 +34,7 @@ const backlinkRef = useRef(location.state);
   return (
     <div>
     {/* // повертаємось назад на сторінку звідки прийшли */}
+    {/* // backlinkRef.current у цій властивості зберігається поточне значення рефа */}
     <Link to={backlinkRef.current}>Go back</Link>
       {user && <UserInfo user={user} />}
       <ul>
